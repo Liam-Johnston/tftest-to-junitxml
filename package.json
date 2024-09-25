@@ -1,0 +1,41 @@
+{
+  "name": "tftest-to-junitxml",
+  "version": "0.0.9",
+  "description": "Parses TF test json output and translates it into JUnit XML",
+  "main": "./output/index.js",
+  "files": [
+    "output"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Liam-Johnston/tftest-to-junitxml.git"
+  },
+  "keywords": [
+    "terraform",
+    "terraform-test",
+    "junit"
+  ],
+  "author": "liam-johnston",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Liam-Johnston/tftest-to-junitxml/issues"
+  },
+  "homepage": "https://github.com/Liam-Johnston/tftest-to-junitxml#readme",
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "js2xmlparser": "^5.0.0",
+    "pino": "^9.4.0",
+    "pino-pretty": "^11.2.2"
+  },
+  "bin": {
+    "tftest-to-junitxml": "bin.js"
+  }
+}
