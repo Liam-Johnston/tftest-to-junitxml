@@ -1,6 +1,6 @@
 {
   "name": "tftest-to-junitxml",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Parses TF test json output and translates it into JUnit XML",
   "main": "./output/index.js",
   "files": [

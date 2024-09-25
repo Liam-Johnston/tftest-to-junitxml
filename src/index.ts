@@ -1,6 +1,6 @@
 import { enableDebugLogging, logger } from "./logger";
 
-import { generateXML } from "./generator";
+import { parse } from "js2xmlparser";
 import { parseTerraformTestLog } from "./parser";
 import { program } from "commander";
 import { writeFileSync } from "fs";
@@ -22,8 +22,13 @@ const main = async (testResultLogFilePath: string, options: Options) => {
     outputFile: options.output,
   });
 
-  const parsedTestLog = await parseTerraformTestLog(testResultLogFilePath);
-  const xml = generateXML(parsedTestLog);
+  const testRun = await parseTerraformTestLog(testResultLogFilePath);
+
+  const xml = parse("testsuites", testRun.render(), {
+    declaration: {
+      encoding: "UTF-8",
+    },
+  });
 
   writeFileSync(options.output, xml);
 };
@@ -33,7 +38,7 @@ program
   .option(
     "--output <file>",
     "output file path for the formatted test results",
-    "./TEST-output.xml"
+    "./TEST-terraform.xml"
   )
   .argument("<testResultLogFilePath>", "terraform test json log output file")
   .action(async (testResultLogFilePath, options) => {

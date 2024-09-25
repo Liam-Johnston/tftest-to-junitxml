@@ -1,13 +1,13 @@
 import * as fs from "fs";
 import * as readline from "readline";
 
-import { TestRunResult } from "./interfaces";
+import { TestRun } from "./test-objects/test-run";
 import { logger } from "./logger";
-import { parserMap } from "./parsers";
+import { parserMap } from "./log-parsers";
 
 export const parseTerraformTestLog = async (
   filePath: string
-): Promise<TestRunResult> => {
+): Promise<TestRun> => {
   const fileStream = fs.createReadStream(filePath);
 
   const rl = readline.createInterface({
@@ -15,9 +15,7 @@ export const parseTerraformTestLog = async (
     crlfDelay: Infinity,
   });
 
-  let parsedTestLog: TestRunResult = {
-    testSuites: {},
-  };
+  const testRun = new TestRun();
 
   for await (const line of rl) {
     logger.debug({
@@ -51,18 +49,16 @@ export const parseTerraformTestLog = async (
       continue;
     }
 
-    parsedTestLog = parser(timestamp, parsedTestLog, jsonObject);
+    parser(timestamp, testRun, jsonObject);
 
     logger.debug({
       message: "log entry parsed",
-      parsedTestLog,
     });
   }
 
   logger.debug({
     message: "finished parsing log file",
-    parsedTestLog,
   });
 
-  return parsedTestLog;
+  return testRun;
 };
