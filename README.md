@@ -23,5 +23,5 @@ npx tftest-to-junitxml ./test-output.log
 Note: By default the output file name is `TEST-terraform.xml`, this will be picked up by default when using the `PublishTestResults@2` tas in Azure DevOps pipelines. It can be modified by using the `--output [OutputFileLocation]` flag
 
 ## TODO
- - [ ] Automate npm publishing
- - [ ] Include test suite
+ - [x] Automate npm publishing
+    > (Handled by the GitHub Actions workflow in `.github/workflows/publish.yml`. Requires an `NPM_TOKEN` secret to be configured in the GitHub repository settings for publishing to npm.)
